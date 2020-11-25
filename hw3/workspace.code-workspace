@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "..\\..\\Js_basic"
+		},
+		{
+			"path": "..\\..\\..\\Vest"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\..\\..\\house_proj"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"python.dataScience.jupyterServerURI": "local"
+	}
+}
