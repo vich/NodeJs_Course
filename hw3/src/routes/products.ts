@@ -2,13 +2,7 @@ import { NextFunction, Request, Response, Router } from 'express';
 import { generateId } from '../utils/id-helper';
 import productsData from '../data/products.json';
 import * as handlers from '../utils/common';
-
-interface Product {
-  id: string;
-  categoryId: string;
-  name: string;
-  itemsInStock: number;
-}
+import { Product } from '../models/products';
 
 const products: Product[] = productsData;
 
