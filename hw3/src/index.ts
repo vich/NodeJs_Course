@@ -7,7 +7,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use('/products', productsRouter);
+app.get('/hello', (req, res) => res.send('hello back'));
+
+app.use('/api/products', productsRouter);
 
 app.set('port', process.env.PORT || 8000);
 
