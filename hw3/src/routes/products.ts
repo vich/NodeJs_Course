@@ -5,7 +5,7 @@ import * as handlers from '../utils/common';
 
 interface Product {
   id: string;
-  categoryId: number;
+  categoryId: string;
   name: string;
   itemsInStock: number;
 }
