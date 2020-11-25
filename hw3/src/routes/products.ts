@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { generateId } from '../utils/id-helper';
 import productsData from '../data/products.json';
+import * as handlers from '../utils/common';
 
 interface Product {
   id: string;
@@ -16,6 +17,11 @@ const router = Router();
 const resolveProductHandler = (req: Request, res: Response, next: NextFunction): void => {
   console.log('enter resolveProductHandler');
   const productId = req.params.id;
+  if (!handlers.isValidUuid(productId)) {
+    res.sendStatus(400);
+    return;
+  }
+
   const productIndex = products.findIndex((p) => p.id === productId);
   if (productIndex < 0) {
     res.sendStatus(404);
@@ -39,7 +45,7 @@ router.get('/:id', resolveProductHandler, (req, res) => {
   res.send(product);
 });
 
-router.post('/', (req, res) => {
+router.post('/', handlers.validateNameHandler, (req, res) => {
   console.log('enter route.post(/)');
   const product = req.body as Product;
   product.id = generateId();
@@ -48,7 +54,7 @@ router.post('/', (req, res) => {
   res.status(201).send(product);
 });
 
-router.put('/:id', resolveProductHandler, (req, res) => {
+router.put('/:id', handlers.validateNameHandler, resolveProductHandler, (req, res) => {
   console.log('enter route.put(/:id)');
   const product = req.body as Product;
   product.id = res.locals.product.id;
