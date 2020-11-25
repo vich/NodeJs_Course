@@ -1,18 +1,20 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { generateId } from '../utils/id-helper';
+import productsData from '../data/products.json';
 
 interface Product {
   id: string;
-  categoryId: string;
+  categoryId: number;
   name: string;
   itemsInStock: number;
 }
 
-const products: Product[] = [];
+const products: Product[] = productsData;
 
 const router = Router();
 
 const resolveProductHandler = (req: Request, res: Response, next: NextFunction): void => {
+  console.log('enter resolveProductHandler');
   const productId = req.params.id;
   const productIndex = products.findIndex((p) => p.id === productId);
   if (productIndex < 0) {
@@ -24,18 +26,30 @@ const resolveProductHandler = (req: Request, res: Response, next: NextFunction):
   next();
 };
 
-router.get('/', (req, res) => res.send(products));
+router.get('/', (req, res) => {
+  console.log('enter route.get(/)');
 
-router.get('/:id', resolveProductHandler, (req, res) => res.send(products));
+  res.send(products);
+});
+
+router.get('/:id', resolveProductHandler, (req, res) => {
+  console.log('enter route.get(/:id)');
+  const product = req.body as Product;
+
+  res.send(product);
+});
 
 router.post('/', (req, res) => {
+  console.log('enter route.post(/)');
   const product = req.body as Product;
   product.id = generateId();
   products.push(product);
+
   res.status(201).send(product);
 });
 
 router.put('/:id', resolveProductHandler, (req, res) => {
+  console.log('enter route.put(/:id)');
   const product = req.body as Product;
   product.id = res.locals.product.id;
   Object.assign(res.locals.product, product);
@@ -44,6 +58,7 @@ router.put('/:id', resolveProductHandler, (req, res) => {
 });
 
 router.delete('/:id', resolveProductHandler, (req, res) => {
+  console.log('enter route.delete(/:id)');
   products.splice(res.locals.productIndex, 1);
 
   res.sendStatus(204);
