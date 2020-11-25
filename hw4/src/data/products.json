@@ -1,0 +1,32 @@
+[
+    {
+        "id": "323856d8-fb6b-400b-8af5-cb10e4acda34",
+        "categoryId": "1",
+        "name": "Barbie",
+        "itemsInStock": 100
+    },
+    {
+        "id": "ee6fa7db-073d-4a53-ac70-5d45d0d8814d",
+        "categoryId": "1",
+        "name": "Car",
+        "itemsInStock": 100
+    },
+    {
+        "id": "c390383f-9d5f-41ce-abc8-14608985ac7a",
+        "categoryId": "1",
+        "name": "Doll",
+        "itemsInStock": 100
+    },
+    {
+        "id": "6796ebd1-c6d4-41f3-987b-82fae152e215",
+        "categoryId": "2",
+        "name": "Apple",
+        "itemsInStock": 100
+    },
+    {
+        "id": "172d8fc7-d345-45ea-89d2-2e1b7d28d28f",
+        "categoryId": "3",
+        "name": "Shirt",
+        "itemsInStock": 100
+    }
+]
