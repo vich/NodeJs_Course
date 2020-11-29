@@ -1,10 +1,8 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { generateId } from '../utils/id-helper';
-import categoriesData from '../data/categories.json';
 import * as handlers from '../utils/common';
 import { Category } from '../models/category';
-
-const categories: Category[] = [];
+import { categories } from '../data/categories';
 
 const router = Router();
 
@@ -30,6 +28,13 @@ router.get('/', (req, res) => {
   console.log('enter route.get(/)');
 
   res.send(categories);
+});
+
+router.get('/:id/products', resolveCategoryHandler, (req, res) => {
+  console.log('enter route.get(/:id/products)');
+  const category = req.body as Category;
+
+  res.send(category);
 });
 
 router.get('/:id', resolveCategoryHandler, (req, res) => {

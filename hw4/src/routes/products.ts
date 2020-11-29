@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { generateId } from '../utils/id-helper';
-import productsData from '../data/products.json';
 import * as handlers from '../utils/common';
 import { Product } from '../models/products';
+import { products } from '../data/products';
 
-const products: Product[] = productsData;
 
 const router = Router();
 
