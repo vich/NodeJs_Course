@@ -4,7 +4,6 @@ import * as handlers from '../utils/common';
 import { Product } from '../models/products';
 import { products } from '../data/products';
 
-
 const router = Router();
 
 const resolveProductHandler = (req: Request, res: Response, next: NextFunction): void => {
