@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { router as productsRouter } from './routes/products';
+import { router as categoriesRouter } from './routes/category';
 
 const app = express();
 
@@ -10,6 +11,7 @@ app.use(cors());
 app.get('/hello', (req, res) => res.send('hello back'));
 
 app.use('/api/products', productsRouter);
+app.use('/api/category', categoriesRouter);
 
 app.set('port', process.env.PORT || 8000);
 
