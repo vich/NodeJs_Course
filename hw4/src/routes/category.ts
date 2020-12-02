@@ -1,12 +1,13 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { generateId } from '../utils/id-helper';
 import * as handlers from '../utils/common';
-import { Category } from '../models/category';
-import { categories } from '../data/categories';
-import { Product } from '../models/products';
-import { products } from '../data/products';
+import { ICategory } from '../models/ICategory';
+import { IProduct } from '../models/IProducts';
 
 const router = Router();
+
+const categories: ICategory[] = [];
+const products: IProduct[] = [];
 
 const resolveCategoryHandler = (req: Request, res: Response, next: NextFunction): void => {
   console.log('enter resolveCategoryHandler');
@@ -35,8 +36,8 @@ router.get('/', (req, res) => {
 router.get('/:id/products', resolveCategoryHandler, (req, res) => {
   console.log('enter route.get(/:id/products)');
 
-  const category = req.body as Category;
-  const productsForCategory: Product[] = [];
+  const category = req.body as ICategory;
+  const productsForCategory: IProduct[] = [];
 
   products.forEach((p) => {
     if (p.categoryId === category.id) productsForCategory.push(p);
@@ -48,7 +49,7 @@ router.get('/:id/products', resolveCategoryHandler, (req, res) => {
 router.get('/:id', resolveCategoryHandler, (req, res) => {
   console.log('enter route.get(/:id)');
 
-  const category = req.body as Category;
+  const category = req.body as ICategory;
 
   res.send(category);
 });
@@ -56,7 +57,7 @@ router.get('/:id', resolveCategoryHandler, (req, res) => {
 router.post('/', handlers.validateNameHandler, (req, res) => {
   console.log('enter route.post(/)');
 
-  const category = req.body as Category;
+  const category = req.body as ICategory;
   category.id = generateId();
   categories.push(category);
 
@@ -66,7 +67,7 @@ router.post('/', handlers.validateNameHandler, (req, res) => {
 router.put('/:id', handlers.validateNameHandler, resolveCategoryHandler, (req, res) => {
   console.log('enter route.put(/:id)');
 
-  const category = req.body as Category;
+  const category = req.body as ICategory;
   category.id = res.locals.category.id;
   Object.assign(res.locals.category, category);
 

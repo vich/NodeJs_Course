@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import { generateId } from '../utils/id-helper';
 import * as handlers from '../utils/common';
-import { Product } from '../models/products';
-import { products } from '../data/products';
+import { IProduct } from '../models/IProducts';
 
 const router = Router();
+const products: IProduct[] = [];
 
 const resolveProductHandler = (req: Request, res: Response, next: NextFunction): void => {
   console.log('enter resolveProductHandler');
@@ -32,14 +32,14 @@ router.get('/', (req, res) => {
 
 router.get('/:id', resolveProductHandler, (req, res) => {
   console.log('enter route.get(/:id)');
-  const product = req.body as Product;
+  const product = req.body as IProduct;
 
   res.send(product);
 });
 
 router.post('/', handlers.validateNameHandler, (req, res) => {
   console.log('enter route.post(/)');
-  const product = req.body as Product;
+  const product = req.body as IProduct;
   product.id = generateId();
   products.push(product);
 
@@ -48,7 +48,7 @@ router.post('/', handlers.validateNameHandler, (req, res) => {
 
 router.put('/:id', handlers.validateNameHandler, resolveProductHandler, (req, res) => {
   console.log('enter route.put(/:id)');
-  const product = req.body as Product;
+  const product = req.body as IProduct;
   product.id = res.locals.product.id;
   Object.assign(res.locals.product, product);
 
