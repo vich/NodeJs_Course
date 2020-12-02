@@ -3,11 +3,13 @@ import { generateId } from '../utils/id-helper';
 import * as handlers from '../utils/common';
 import { ICategory } from '../models/ICategory';
 import { IProduct } from '../models/IProducts';
+import { getCatrgories } from '../store/categories-store';
+import { getProducts } from '../store/products-store';
 
 const router = Router();
 
-const categories: ICategory[] = [];
-const products: IProduct[] = [];
+const categories: ICategory[] = getCatrgories();
+const products: IProduct[] = getProducts();
 
 const resolveCategoryHandler = (req: Request, res: Response, next: NextFunction): void => {
   console.log('enter resolveCategoryHandler');

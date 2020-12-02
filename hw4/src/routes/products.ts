@@ -2,9 +2,10 @@ import { NextFunction, Request, Response, Router } from 'express';
 import { generateId } from '../utils/id-helper';
 import * as handlers from '../utils/common';
 import { IProduct } from '../models/IProducts';
+import { getProducts } from '../store/products-store';
 
 const router = Router();
-const products: IProduct[] = [];
+const products: IProduct[] = getProducts();
 
 const resolveProductHandler = (req: Request, res: Response, next: NextFunction): void => {
   console.log('enter resolveProductHandler');
